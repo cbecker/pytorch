@@ -31,7 +31,7 @@ CAFFE2_DECLARE_bool(caffe2_use_fatal_for_enforce);
 
 namespace caffe2 {
 // Functions that we use for initialization.
-bool InitCaffeLogging(int* argc, char** argv);
+CAFFE2_EXPORT bool InitCaffeLogging(int* argc, char** argv);
 
 constexpr bool IsUsingGoogleLogging() {
 #ifdef CAFFE2_USE_GOOGLE_GLOG
@@ -49,7 +49,7 @@ constexpr bool IsUsingGoogleLogging() {
  * cases, such as when you want to write a tutorial or something. Normally, use
  * the commandline flags to set the log level.
  */
-void ShowLogInfoToStderr();
+CAFFE2_EXPORT void ShowLogInfoToStderr();
 
 inline void MakeStringInternal(std::stringstream& /*ss*/) {}
 
@@ -92,18 +92,18 @@ inline string Join(const string& delimiter, const Container& v) {
 }
 
 // Obtains the base name from a full path.
-string StripBasename(const std::string& full_path);
+CAFFE2_EXPORT string StripBasename(const std::string& full_path);
 
 // Replace all occurrences of "from" substring to "to" string.
 // Returns number of replacements
-size_t ReplaceAll(string& s, const char* from, const char* to);
+CAFFE2_EXPORT size_t ReplaceAll(string& s, const char* from, const char* to);
 
-void SetStackTraceFetcher(std::function<string(void)> fetcher);
+CAFFE2_EXPORT void SetStackTraceFetcher(std::function<string(void)> fetcher);
 
-void SetOperatorLogger(std::function<void(const OperatorDef&)> tracer);
-std::function<void(const OperatorDef&)> GetOperatorLogger();
+CAFFE2_EXPORT void SetOperatorLogger(std::function<void(const OperatorDef&)> tracer);
+CAFFE2_EXPORT std::function<void(const OperatorDef&)> GetOperatorLogger();
 
-class EnforceNotMet : public std::exception {
+class CAFFE2_EXPORT EnforceNotMet : public std::exception {
  public:
   EnforceNotMet(
       const char* file,
@@ -179,7 +179,7 @@ namespace enforce_detail {
 
 struct EnforceOK {};
 
-class EnforceFailMessage {
+class CAFFE2_EXPORT EnforceFailMessage {
  public:
 #ifdef _MSC_VER
   // MSVC + NVCC ignores constexpr and will issue a warning if included.

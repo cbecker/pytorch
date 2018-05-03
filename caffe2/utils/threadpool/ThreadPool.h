@@ -25,7 +25,7 @@ constexpr size_t kCacheLineSize = 64;
 // the object is created on the heap). Thus, in order to avoid
 // misaligned intrinsics, no SSE instructions shall be involved in
 // the ThreadPool implemetation.
-class alignas(kCacheLineSize) ThreadPool {
+class alignas(kCacheLineSize) CAFFE2_EXPORT ThreadPool {
  public:
   static std::unique_ptr<ThreadPool> defaultThreadPool();
   ThreadPool(int numThreads);

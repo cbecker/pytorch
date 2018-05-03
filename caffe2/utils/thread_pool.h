@@ -12,7 +12,7 @@
 
 namespace caffe2 {
 
-class TaskThreadPool {
+class CAFFE2_EXPORT TaskThreadPool {
  private:
   struct task_element_t {
     bool run_with_id;

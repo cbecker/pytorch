@@ -27,7 +27,7 @@ const int INFO    = 0;
 const char CAFFE2_SEVERITY_PREFIX[] = "FEWIV";
 
 namespace caffe2 {
-class MessageLogger {
+class CAFFE2_EXPORT MessageLogger {
  public:
   MessageLogger(const char *file, int line, int severity);
   ~MessageLogger();

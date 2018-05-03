@@ -19,11 +19,11 @@
 namespace caffe2 {
 
 typedef intptr_t CaffeTypeId;
-std::map<CaffeTypeId, string>& gTypeNames();
-std::set<string>& gRegisteredTypeNames();
+CAFFE2_EXPORT std::map<CaffeTypeId, string>& gTypeNames();
+CAFFE2_EXPORT std::set<string>& gRegisteredTypeNames();
 
 // A utility function to demangle a function name.
-string Demangle(const char* name);
+CAFFE2_EXPORT string Demangle(const char* name);
 
 /**
  * Returns the printable name of the type.
@@ -42,9 +42,9 @@ static const char* DemangleType() {
 
 // A utility function to return an exception string by prepending its exception
 // type before its what() content.
-string GetExceptionString(const std::exception& e);
+CAFFE2_EXPORT string GetExceptionString(const std::exception& e);
 
-std::mutex& gCaffe2TypeRegistrationMutex();
+CAFFE2_EXPORT std::mutex& gCaffe2TypeRegistrationMutex();
 
 template <typename T>
 struct TypeNameRegisterer {

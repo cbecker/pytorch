@@ -141,13 +141,13 @@ bool CommandLineFlagsHasBeenParsed() {
 }
 
 template <>
-bool Caffe2FlagParser::Parse<string>(const string& content, string* value) {
+CAFFE2_EXPORT bool Caffe2FlagParser::Parse<string>(const string& content, string* value) {
   *value = content;
   return true;
 }
 
 template <>
-bool Caffe2FlagParser::Parse<int>(const string& content, int* value) {
+CAFFE2_EXPORT bool Caffe2FlagParser::Parse<int>(const string& content, int* value) {
   try {
     *value = std::atoi(content.c_str());
     return true;
@@ -159,7 +159,7 @@ bool Caffe2FlagParser::Parse<int>(const string& content, int* value) {
 }
 
 template <>
-bool Caffe2FlagParser::Parse<int64_t>(const string& content, int64_t* value) {
+CAFFE2_EXPORT bool Caffe2FlagParser::Parse<int64_t>(const string& content, int64_t* value) {
   try {
     static_assert(sizeof(long long) == sizeof(int64_t), "");
 #ifdef __ANDROID__
@@ -177,7 +177,7 @@ bool Caffe2FlagParser::Parse<int64_t>(const string& content, int64_t* value) {
 }
 
 template <>
-bool Caffe2FlagParser::Parse<double>(const string& content, double* value) {
+CAFFE2_EXPORT bool Caffe2FlagParser::Parse<double>(const string& content, double* value) {
   try {
     *value = std::atof(content.c_str());
     return true;
@@ -190,7 +190,7 @@ bool Caffe2FlagParser::Parse<double>(const string& content, double* value) {
 }
 
 template <>
-bool Caffe2FlagParser::Parse<bool>(const string& content, bool* value) {
+CAFFE2_EXPORT bool Caffe2FlagParser::Parse<bool>(const string& content, bool* value) {
   if (content == "false" || content == "False" || content == "FALSE" ||
       content == "0") {
     *value = false;

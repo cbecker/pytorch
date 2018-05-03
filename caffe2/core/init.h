@@ -8,7 +8,7 @@
 namespace caffe2 {
 
 namespace internal {
-class Caffe2InitializeRegistry {
+class CAFFE2_EXPORT Caffe2InitializeRegistry {
  public:
   typedef bool (*InitFunction)(int*, char***);
   // Registry() is defined in .cpp file to make registration work across
@@ -56,7 +56,7 @@ class Caffe2InitializeRegistry {
 };
 }  // namespace internal
 
-class InitRegisterer {
+class CAFFE2_EXPORT InitRegisterer {
  public:
   InitRegisterer(internal::Caffe2InitializeRegistry::InitFunction function,
                  bool run_early, const char* description) {
@@ -94,10 +94,10 @@ class InitRegisterer {
  * the global initialization has already been run, the function returns false
  * as well.
  */
-bool GlobalInit(int* pargc, char*** argv);
+CAFFE2_EXPORT bool GlobalInit(int* pargc, char*** argv);
 
 #if CAFFE2_MOBILE
-bool GlobalInit();
+CAFFE2_EXPORT bool GlobalInit();
 #endif
 }  // namespace caffe2
 #endif  // CAFFE2_CORE_INIT_H_

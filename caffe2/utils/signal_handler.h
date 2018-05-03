@@ -9,7 +9,7 @@
 
 namespace caffe2 {
 
-class SignalHandler {
+class CAFFE2_EXPORT SignalHandler {
  public:
   enum class Action {
     NONE,

@@ -17,7 +17,7 @@ using ::google::protobuf::MessageLite;
 
 // A wrapper function to shut down protobuf library (this is needed in ASAN
 // testing and valgrind cases to avoid protobuf appearing to "leak" memory).
-void ShutdownProtobufLibrary();
+CAFFE2_EXPORT void ShutdownProtobufLibrary();
 
 // A wrapper function to return device name string for use in blob serialization
 // / deserialization. This should have one to one correspondence with
@@ -26,24 +26,24 @@ void ShutdownProtobufLibrary();
 // Note that we can't use DeviceType_Name, because that is only available in
 // protobuf-full, and some platforms (like mobile) may want to use
 // protobuf-lite instead.
-std::string DeviceTypeName(const int32_t& d);
+CAFFE2_EXPORT std::string DeviceTypeName(const int32_t& d);
 
-int DeviceId(const DeviceOption& option);
+CAFFE2_EXPORT int DeviceId(const DeviceOption& option);
 
 // Returns if the two DeviceOptions are pointing to the same device.
-bool IsSameDevice(const DeviceOption& lhs, const DeviceOption& rhs);
+CAFFE2_EXPORT bool IsSameDevice(const DeviceOption& lhs, const DeviceOption& rhs);
 
 // Common interfaces that reads file contents into a string.
-bool ReadStringFromFile(const char* filename, string* str);
-bool WriteStringToFile(const string& str, const char* filename);
+CAFFE2_EXPORT bool ReadStringFromFile(const char* filename, string* str);
+CAFFE2_EXPORT bool WriteStringToFile(const string& str, const char* filename);
 
 // Common interfaces that are supported by both lite and full protobuf.
-bool ReadProtoFromBinaryFile(const char* filename, MessageLite* proto);
+CAFFE2_EXPORT bool ReadProtoFromBinaryFile(const char* filename, MessageLite* proto);
 inline bool ReadProtoFromBinaryFile(const string filename, MessageLite* proto) {
   return ReadProtoFromBinaryFile(filename.c_str(), proto);
 }
 
-void WriteProtoToBinaryFile(const MessageLite& proto, const char* filename);
+CAFFE2_EXPORT void WriteProtoToBinaryFile(const MessageLite& proto, const char* filename);
 inline void WriteProtoToBinaryFile(const MessageLite& proto,
                                    const string& filename) {
   return WriteProtoToBinaryFile(proto, filename.c_str());
@@ -59,9 +59,9 @@ inline bool ParseFromString(const string& spec, MessageLite* proto) {
 } // namespace TextFormat
 
 
-string ProtoDebugString(const MessageLite& proto);
+CAFFE2_EXPORT string ProtoDebugString(const MessageLite& proto);
 
-bool ParseProtoFromLargeString(const string& str, MessageLite* proto);
+CAFFE2_EXPORT bool ParseProtoFromLargeString(const string& str, MessageLite* proto);
 
 // Text format MessageLite wrappers: these functions do nothing but just
 // allowing things to compile. It will produce a runtime error if you are using
@@ -93,7 +93,7 @@ inline bool ReadProtoFromFile(const char* filename, MessageLite* proto) {
           ReadProtoFromTextFile(filename, proto));
 }
 
-inline bool ReadProtoFromFile(const string& filename, MessageLite* proto) {
+inline bool ReadProtoFromFile(  const string& filename, MessageLite* proto) {
   return ReadProtoFromFile(filename.c_str(), proto);
 }
 
@@ -102,19 +102,19 @@ inline bool ReadProtoFromFile(const string& filename, MessageLite* proto) {
 using ::google::protobuf::Message;
 
 namespace TextFormat {
-bool ParseFromString(const string& spec, Message* proto);
+CAFFE2_EXPORT bool ParseFromString(const string& spec, Message* proto);
 } // namespace TextFormat
 
-string ProtoDebugString(const Message& proto);
+CAFFE2_EXPORT string ProtoDebugString(const Message& proto);
 
-bool ParseProtoFromLargeString(const string& str, Message* proto);
+CAFFE2_EXPORT bool ParseProtoFromLargeString(const string& str, Message* proto);
 
-bool ReadProtoFromTextFile(const char* filename, Message* proto);
+CAFFE2_EXPORT bool ReadProtoFromTextFile(const char* filename, Message* proto);
 inline bool ReadProtoFromTextFile(const string filename, Message* proto) {
   return ReadProtoFromTextFile(filename.c_str(), proto);
 }
 
-void WriteProtoToTextFile(const Message& proto, const char* filename);
+CAFFE2_EXPORT void WriteProtoToTextFile(const Message& proto, const char* filename);
 inline void WriteProtoToTextFile(const Message& proto, const string& filename) {
   return WriteProtoToTextFile(proto, filename.c_str());
 }
@@ -280,13 +280,13 @@ class ArgumentHelper {
   CaffeMap<string, Argument> arg_map_;
 };
 
-const Argument& GetArgument(const OperatorDef& def, const string& name);
-bool GetFlagArgument(
+CAFFE2_EXPORT const Argument& GetArgument(const OperatorDef& def, const string& name);
+CAFFE2_EXPORT bool GetFlagArgument(
     const OperatorDef& def,
     const string& name,
     bool def_value = false);
 
-Argument* GetMutableArgument(
+CAFFE2_EXPORT Argument* GetMutableArgument(
     const string& name,
     const bool create_if_missing,
     OperatorDef* def);

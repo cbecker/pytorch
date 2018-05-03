@@ -73,7 +73,7 @@ namespace gflags = google;
 #define CAFFE2_DEFINE_int(name, default_value, help_str)                       \
   CAFFE2_GFLAGS_DEF_WRAPPER(int32, name, default_value, help_str)
 #define CAFFE2_DEFINE_int64(name, default_value, help_str)                     \
-  CAFFE2_GFLAGS_DEF_WRAPPER(int64, name, default_value, help_str)              
+  CAFFE2_GFLAGS_DEF_WRAPPER(int64, name, default_value, help_str)
 #define CAFFE2_DEFINE_double(name, default_value, help_str)                    \
   CAFFE2_GFLAGS_DEF_WRAPPER(double, name, default_value, help_str)
 #define CAFFE2_DEFINE_bool(name, default_value, help_str)                      \
@@ -98,7 +98,7 @@ namespace gflags = google;
 
 namespace caffe2 {
 
-class Caffe2FlagParser {
+class CAFFE2_EXPORT Caffe2FlagParser {
  public:
   Caffe2FlagParser() {}
   bool success() { return success_; }
@@ -119,7 +119,7 @@ CAFFE_DECLARE_REGISTRY(Caffe2FlagsRegistry, Caffe2FlagParser, const string&);
 
 #define CAFFE2_DEFINE_typed_var(type, name, default_value, help_str)          \
   namespace caffe2 {                                                          \
-  CAFFE2_EXPORT type FLAGS_##name = default_value;                            \
+  type FLAGS_##name = default_value;                            \
   namespace {                                                                 \
   class Caffe2FlagParser_##name : public Caffe2FlagParser {                   \
    public:                                                                    \

@@ -694,7 +694,7 @@ typedef Registry<
     std::unique_ptr<OperatorBase>,
     const OperatorDef&,
     Workspace*>* (*RegistryFunction)();
-std::map<int32_t, OperatorRegistry*>* gDeviceTypeRegistry();
+CAFFE2_EXPORT std::map<int32_t, OperatorRegistry*>* gDeviceTypeRegistry();
 
 struct DeviceTypeRegisterer {
   explicit DeviceTypeRegisterer(int32_t type, RegistryFunction func) {
@@ -817,12 +817,12 @@ class UnsupportedOperatorFeature : public std::exception {
 
 // Creates an operator with the given operator definition.
 // Throws on error and never returns nullptr
-unique_ptr<OperatorBase> CreateOperator(
+CAFFE2_EXPORT unique_ptr<OperatorBase> CreateOperator(
     const OperatorDef& operator_def,
     Workspace* ws,
     int net_position = OperatorBase::kNoNetPositionSet);
 
-const std::string OpRegistryKey(
+CAFFE2_EXPORT const std::string OpRegistryKey(
     const std::string& op_type,
     const std::string& engine = "");
 
@@ -834,35 +834,35 @@ using PerOpEnginePrefType =
     CaffeMap<int, CaffeMap<std::string, EnginePrefType>>;
 // {device_type -> EnginePrefType}
 using GlobalEnginePrefType = CaffeMap<int, EnginePrefType>;
-void SetPerOpEnginePref(const PerOpEnginePrefType& per_op_engine_pref);
-void SetGlobalEnginePref(const GlobalEnginePrefType& global_engine_pref);
-void SetEnginePref(
+CAFFE2_EXPORT void SetPerOpEnginePref(const PerOpEnginePrefType& per_op_engine_pref);
+CAFFE2_EXPORT void SetGlobalEnginePref(const GlobalEnginePrefType& global_engine_pref);
+CAFFE2_EXPORT void SetEnginePref(
     const PerOpEnginePrefType& per_op_engine_pref,
     const GlobalEnginePrefType& global_engine_pref);
-void SetOpEnginePref(
+CAFFE2_EXPORT void SetOpEnginePref(
     const std::string& op_type,
     const CaffeMap<int, EnginePrefType>& op_pref);
 
-TensorShape GetTensorShapeOfBlob(const Blob* b);
+CAFFE2_EXPORT TensorShape GetTensorShapeOfBlob(const Blob* b);
 
-TensorShapes InferBlobShapesAndTypes(
+CAFFE2_EXPORT TensorShapes InferBlobShapesAndTypes(
     CaffeMap<string, TensorShape>& blob_desc,
     const vector<NetDef*>& nets);
 
-TensorShapes InferBlobShapesAndTypesFromWorkspace(
+CAFFE2_EXPORT TensorShapes InferBlobShapesAndTypesFromWorkspace(
     Workspace* ws,
     const vector<NetDef*>& nets);
 
-TensorShapes InferBlobShapesAndTypesFromMap(
+CAFFE2_EXPORT TensorShapes InferBlobShapesAndTypesFromMap(
     const CaffeMap<std::string, std::vector<TIndex>>& blob_dimensions,
     const vector<NetDef*>& nets);
 
-std::map<string, std::pair<DeviceOption, DeviceOption>> ValidateTensorDevices(
+CAFFE2_EXPORT std::map<string, std::pair<DeviceOption, DeviceOption>> ValidateTensorDevices(
     OperatorBase& op,
     const OperatorDef& op_def);
 
 // Get a set of registered operator names
-std::set<std::string> GetRegisteredOperators();
+CAFFE2_EXPORT std::set<std::string> GetRegisteredOperators();
 
 }  // namespace caffe2
 
